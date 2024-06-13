@@ -36,7 +36,7 @@ transformer = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
 
 # Load user messages from file
 print("Loading messages...")
-with open("./maverik.txt", "r") as file:
+with open("./maverik_obscene.txt", "r") as file:
     messages = [x.strip() for x in file.readlines()]
 
 
@@ -65,10 +65,10 @@ def prompt(message):
 
     print("Finding similar messages...")
 
-    # Find 20 most similar user messages across 1000 random samples
+    # Find 20 most similar user messages
     message_embedding = transformer.encode([message])[0]
     similarities = []
-    for i, emb in enumerate(random.sample(embeddings, 1000)):
+    for i, emb in enumerate(embeddings):
         similarity = transformer.similarity(message_embedding, emb)
         similarities.append((i, similarity))
 
